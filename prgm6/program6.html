@@ -27,19 +27,25 @@ document.write("13. Split: ", str2.split(" "), "<br><br>");
 
 </script>
 <h2>JavaScript Math Object Functions</h2>
-<script language="javascript">
-var num = prompt("Enter a Number:");
-var m=prompt("Enter the number to find power:");
-var n=prompt("Enter the number to the power:");
-document.write("1. Number: ", num, "<br><br>");
-document.write("2. Square Root: ", Math.sqrt(num), "<br><br>");
+<script>
+var numbers = [];
+var count = prompt("How many numbers do you want to enter?");
+for (var i = 0; i < count; i++) 
+{
+    numbers[i] = Number(prompt("Enter number " + (i + 1) + ":"));
+}
+var m = prompt("Enter the number to find power:");
+var n = prompt("Enter the number to the power:");
+var num = numbers[0];
+document.write("1. Array of numbers: ", numbers, "<br><br>");
+document.write("2. Square Root of ", numbers[1], ": ", Math.sqrt(numbers[1]), "<br><br>");
+document.write("3. Power(",m,",",n,"): ", Math.pow(m, n), "<br><br>");
 document.write("4. Round: ", Math.round(num), "<br><br>");
 document.write("5. Ceiling: ", Math.ceil(num), "<br><br>");
 document.write("6. Floor: ", Math.floor(num), "<br><br>");
-document.write("3. Power: ", Math.pow(m, n), "<br><br>");
-document.write("7. Absolute Value of -25: ", Math.abs(-25), "<br><br>");
-document.write("8. Maximum in (10,20,30,40): ", Math.max(10, 20, 30, 40), "<br><br>");
-document.write("9. Minimum in (10,20,30,40): ", Math.min(10, 20, 30, 40), "<br><br>");
+document.write("7. Absolute Value",num,": ", Math.abs(num), "<br><br>");
+document.write("8. Maximum: ", Math.max(...numbers), "<br><br>");
+document.write("9. Minimum: ", Math.min(...numbers), "<br><br>");
 document.write("10. Random Number: ", Math.random(), "<br><br>");
 </script>
 </body>
