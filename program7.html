@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Yearly Calendar</title>
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #f2f4f8;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 15px;
+}
+.month {
+    background: white;
+    padding: 10px;
+}
+h1 {
+    color: #b33b72;
+}
+h2 {
+    color: #b33b72;
+}
+button {
+    background: #b33b72;
+    color: white;
+    padding: 8px;
+    border: none;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+th {
+    background: #cf91b5;
+}
+@media(max-width:600px) {
+    #calendar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+</head>
+<body>
+<h1>Yearly Calendar</h1>
+Enter year:
+<input type="number" id="year" min="1000" max="9999" placeholder="Enter year">
+<button onclick="generate()">Generate Calendar</button>
+<h2 id="heading"></h2>
+<div id="calendar"></div>
+<script>
+function generate() {
+    var year = +document.getElementById("year").value;
+    if (year < 1000 || year > 9999) {
+        alert("Enter a valid year");
+        return;
+    }
+    var months = ["January","February","March","April","May","June",
+                  "July","August","September","October","November","December"];
+    var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    document.getElementById("heading").innerHTML = "Calendar for " + year;
+    var output = "";
+    for (var m = 0; m < 12; m++) {
+        output += "<div class='month'><h2>" + months[m] + "</h2><table><tr>";
+        for (var d of days)
+            output += "<th>" + d + "</th>";
+        output += "</tr><tr>";
+        var first = new Date(year, m, 1).getDay();
+        var total = new Date(year, m + 1, 0).getDate();
+        for (var i = 0; i < first; i++)
+            output += "<td></td>";
+        for (var date = 1; date <= total; date++) {
+            output += "<td>" + date + "</td>";
+            if ((first + date) % 7 == 0 && date != total)
+                output += "</tr><tr>";
+        }
+        output += "</tr></table></div>";
+    }
+    document.getElementById("calendar").innerHTML = output;
+}
+</script>
+</body>
+</html>
+
