@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+<style>
+body {
+    font-family: Arial;
+    background: lightblue;
+}
+form {
+    background: white;
+    width: 350px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 10px;
+}
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}
+.error {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background: darkblue;
+    color: white;
+    }
+button:hover {
+    background-color: blue;
+}
+</style>
+</head>
+<body>
+<h2 align="center">REGISTRATION FORM</h2>
+<form name="f1" onsubmit="return validateForm()">
+<label>Name:</label>
+<input type="text" name="name" onblur="validateName()">
+<div id="nameError" class="error"></div>
+<label>Email:</label>
+<input type="text" name="email" onblur="validateEmail()">
+<div id="emailError" class="error"></div>
+<label>Phone:</label>
+<input type="text" name="phone" onblur="validatePhone()">
+<div id="phoneError" class="error"></div>
+<label>Password:</label>
+<input type="password" name="password" onblur="validatePassword()">
+<div id="passwordError" class="error"></div>
+<label>Confirm Password:</label>
+<input type="password" name="confpassword" onblur="validateConfirmPassword()">
+<div id="confirmError" class="error"></div>
+<label>Gender:</label>
+<select name="gender" onchange="validateGender()" onblur="validateGender()">
+    <option value="">Select Gender</option>
+    <option value="male">MALE</option>
+    <option value="female">FEMALE</option>
+    <option value="other">OTHERS</option>
+</select>
+<div id="genderError" class="error"></div>
+<button type="submit">REGISTER</button>
+</form>
+<script>
+function validateName()
+{
+    var name = document.f1.name.value;
+    if(name.trim() == "")
+    {
+        document.getElementById("nameError").innerHTML =
+        "Name can't be blank";
+        return false;
+    }
+    document.getElementById("nameError").innerHTML = "";
+    return true;
+}
+function validateEmail()
+{
+    var email = document.f1.email.value;
+    var at = email.indexOf("@");
+    var dot = email.lastIndexOf(".");
+    if(email == "")
+    {
+        document.getElementById("emailError").innerHTML =
+        "Email field is empty";
+        return false;
+    }
+    else if(at < 1 || email.indexOf("@", at + 1) != -1 ||
+            dot < at + 2 || dot + 2 >= email.length ||
+            email.includes(" ") || email.includes(".."))
+    {
+        document.getElementById("emailError").innerHTML =
+        "Enter valid email";
+        return false;
+    }
+    document.getElementById("emailError").innerHTML = "";
+    return true;
+}
+function validatePhone()
+{
+    var phone = document.f1.phone.value;
+    if(phone.length != 10 || !/^\d+$/.test(phone))
+    {
+        document.getElementById("phoneError").innerHTML =
+        "Enter valid 10 digit phone number";
+        return false;
+    }
+    document.getElementById("phoneError").innerHTML = "";
+    return true;
+}
+function validatePassword()
+{
+    var password = document.f1.password.value;
+    if(password.length < 8)
+    {
+        document.getElementById("passwordError").innerHTML =
+        "Password must be at least 8 characters";
+        return false;
+    }
+    document.getElementById("passwordError").innerHTML = "";
+    return true;
+}
+function validateConfirmPassword()
+{
+    var password = document.f1.password.value;
+    var confpassword = document.f1.confpassword.value;
+    if(password != confpassword)
+    {
+        document.getElementById("confirmError").innerHTML =
+        "Password must be same";
+        return false;
+    }
+    document.getElementById("confirmError").innerHTML = "";
+    return true;
+}
+function validateGender()
+{
+    var gender = document.f1.gender.value;
+    if(gender == "")
+    {
+        document.getElementById("genderError").innerHTML =
+        "Please select gender";
+        return false;
+    }
+    document.getElementById("genderError").innerHTML = "";
+    return true;
+}
+function validateForm()
+{
+    var a = validateName();
+    var b = validateEmail();
+    var c = validatePhone();
+    var d = validatePassword();
+    var e = validateConfirmPassword();
+    var f = validateGender();
+    if(a && b && c && d && e && f)
+    {
+        alert("Registration Successful!");
+        document.f1.reset();
+    }
+    return false;
+}
+</script>
+</body>
+</html>
+
